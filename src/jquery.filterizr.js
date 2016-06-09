@@ -132,7 +132,8 @@
                 },
                 layout: 'sameSize',
                 selector: (typeof selector === 'string') ? selector : '.filtr-container',
-                setupControls: true
+                setupControls: true,
+                delayTimeout: 250
             };
             //No arguments constructor
             if (arguments.length === 0) {
@@ -173,6 +174,7 @@
             if (self.options.setupControls) self._setupControls();
             //Start Filterizr!
             self.filter(self.options.filter);
+            $(global).resize();
             return self;
         },
 
@@ -508,7 +510,7 @@
             $(global).resize(function() {
                 self._delayEvent(function() {
                     self.trigger('resizeFiltrContainer');
-                }, 250, self._uID);
+                }, self.options.delayTimeout, self._uID);
             });
             //Filterizr events
             self
@@ -1031,4 +1033,4 @@
         }
     };
 
-})(this, jQuery);
+})(window, jQuery);
